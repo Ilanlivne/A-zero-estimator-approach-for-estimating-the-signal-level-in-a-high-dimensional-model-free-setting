@@ -67,11 +67,10 @@
     dt<- dt %>% mutate(pred =if_else(index >= index_star,"big","small") )
     return(dt)
   }  
-  
-  
-  Y_pop =  X_pop%*%delta+  sin(X_pop)%*%delta + rexp(n_pop,1)-1
     
   ##############################################
+  Y_pop =  X_pop%*%delta+  sin(X_pop)%*%delta + rexp(n_pop,1)-1
+  
   #Best linear predictor (BLP) parameters
   BLP<-(t(X_pop)%*%Y_pop)/n_pop
   (alpha <- mean(Y_pop))
@@ -126,13 +125,13 @@
   
   #  create final table
   Naive <- naive
-  Single <- if_else(single_coeff_estimator<0,0,single_coeff_estimator)
-  Single_selection <- if_else(single_coeff_estimator_selection<0,0,single_coeff_estimator_selection)
+  T_g_hat <- if_else(single_coeff_estimator<0,0,single_coeff_estimator)
+  T_h_hat <- if_else(single_coeff_estimator_selection < 0,0,single_coeff_estimator_selection)
   
   
   return(tibble( Naive = naive
-                 ,T_1 = Single
-                 ,T_2 = Single_selection
+                 ,T_g_hat = T_g_hat
+                 ,T_h_hat = T_h_hat
                  
   ))
 }
@@ -146,9 +145,6 @@
   raw_storage<-gather(result, method, value, 3:ncol(result)) 
   end_time <- Sys.time()
   total_time  <- round(end_time - start_time)
-  
-  
-  
   
   ###############################################
   #    Summary Table
