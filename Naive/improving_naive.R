@@ -7,7 +7,7 @@
   start_time <- Sys.time()
   lapply(packages, require, character.only = TRUE)
   source("run_sim.R")
-  Rcpp::sourceCpp("zero_terms_function.cpp")
+  Rcpp::sourceCpp("zero_terms_functions.cpp")
   #options(future.globals.maxSize= 2672864000)
   
   
