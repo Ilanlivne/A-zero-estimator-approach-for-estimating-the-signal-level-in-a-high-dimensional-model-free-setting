@@ -69,7 +69,7 @@
   }  
     
   ##############################################
-  Y_pop =  X_pop%*%delta+  sin(X_pop)%*%delta + rexp(n_pop,1)-1
+  Y_pop =  X_pop%*%delta+  sin(X_pop)%*%delta + rnorm(n_pop,0,sig_eps)
   
   #Best linear predictor (BLP) parameters
   BLP<-(t(X_pop)%*%Y_pop)/n_pop
