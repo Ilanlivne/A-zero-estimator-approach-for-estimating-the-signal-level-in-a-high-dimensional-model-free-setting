@@ -16,7 +16,7 @@
   ######################################
   
   n_cores =72  
-  n_simulation = 20
+  n_simulation = 100
   n_pop<- 1*10^6
   n = p = 300
   c = 6  #number of large betas. sparse/dense parameter.
