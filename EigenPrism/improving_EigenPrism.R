@@ -1,4 +1,3 @@
-rm(list = ls())
 packages <- c("ggplot2","tidyr","dplyr","latex2exp","gridExtra" ,"Rcpp","scales","stargazer","cccp")
 lapply(packages, require, character.only = TRUE)
 source("run_sim_multicore.R")
@@ -204,7 +203,7 @@ sim_fn <- function(setting_param_list){
   Eigen_tau2 <- EigenPrism(y=Y,X=X,target='beta2',diagnostics=F)$estimate  
   
   
-  #####        Single coefficient mixed with selection estimator     
+  #####      Proposed estimators     
   
   dt<- selection_algoritm(X,Y)   
   estimated_indexes <- filter(dt,pred == "big") %>% dplyr::select(j)
@@ -234,10 +233,10 @@ sim_fn <- function(setting_param_list){
      }# end of bootstrapping loop
   
   
-  ########single-selection##########
+  ########  T_g_tilde  ##########
   cov_emp_single <- cov(Eigen_Pri_b, g_single_b)
   c_star_mean_single <- cov_emp_single/mehane 
-  ########single-selection##########
+  ########  T_g_tilde   ##########
   cov_emp_sin_sel <- cov(Eigen_Pri_b, g_single_selection_b)
   c_star_mean_sel <- cov_emp_sin_sel/mehane_selection 
   
@@ -254,15 +253,8 @@ sim_fn <- function(setting_param_list){
 
 ######################################################################################
 
-#########################
-# quick check for sim_fn:
-#############################
-setting_param_list <- list(seed = 1,n=n)
-sim_fn(setting_param_list)
 
-
-###############################################################################
-ss=451
+ss=451   # set seed
 setting_param_list <-  list(seed = ss:(n_simulation+ss), n = n)
 
 # availableCores()
